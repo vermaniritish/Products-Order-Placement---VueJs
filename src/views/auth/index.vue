@@ -50,6 +50,7 @@
 						<input type="number" class="otp__digit otp__field__3" v-model="otp3" maxlength="1">
 						<input type="number" class="otp__digit otp__field__4" v-model="otp4" maxlength="1">
 					</div>
+					<p class="text-danger" v-if="tmpOtp">The temp auth OTP is {{tmpOtp}}</p>
 					<p class="text-end"><a href="javascript:;" v-on:click="resendCode">Resend Code</a></p>
 				</div>
 				<div class="col-sm-12">
@@ -81,6 +82,7 @@ export default {
 			submitting: false,
 			otpModal: false,
 			error: null,
+			tmpOtp: null,
 			otp1: ``,
 			otp2: ``,
 			otp3: ``,
@@ -106,6 +108,7 @@ export default {
 			if(response && response.status && response.hash)
 			{
 				this.token = response.hash;
+				this.tmpOtp = response.otp;
 				this.initOtpModal();
 			}
 		},
